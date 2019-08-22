@@ -57,16 +57,17 @@ async function run() {
       return
     }
 
-    console.log(1, prInfo.state === 'commented' && configObj.onComment)
-    console.log(2, configObj.onComment)
+    console.log(1, prInfo.state === 'commented')
+    console.log(1, prInfo.state === 'commented' && configObj['onComment'])
+    console.log(2, configObj['onComment'])
     let githubAction
-    if (prInfo.state === 'commented' && configObj.onComment) {
+    if (prInfo.state === 'commented' && configObj['onComment']) {
       githubAction = configObj.onComment
-    } else if (prInfo.state === 'approved' && configObj.onApproved) {
+    } else if (prInfo.state === 'approved' && configObj['onApproved']) {
       githubAction = configObj.onApproved
     } else if (
       prInfo.state === 'changes_requested' &&
-      configObj.onChangesRequested
+      configObj['onChangesRequested']
     ) {
       githubAction = configObj.onChangesRequested
     }
