@@ -35,9 +35,7 @@ async function run() {
     const token = core.getInput('GITHUB_TOKEN', { required: true })
     const configPath = core.getInput('CONFIG_PATH', { required: true })
 
-    const configObj: any = yaml.safeLoad(
-      fs.readFileSync(configPath, 'utf8')
-    )
+    const configObj: any = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
 
     if (!configObj) {
       console.log('There is no configuration to set the labels')
@@ -59,13 +57,17 @@ async function run() {
       return
     }
 
-    console.log(1, configObj)
+    console.log(1, prInfo.state === 'commented' && configObj.onComment)
+    console.log(2, configObj.onComment)
     let githubAction
     if (prInfo.state === 'commented' && configObj.onComment) {
       githubAction = configObj.onComment
     } else if (prInfo.state === 'approved' && configObj.onApproved) {
       githubAction = configObj.onApproved
-    } else if (prInfo.state === 'changes_requested' && configObj.onChangesRequested) {
+    } else if (
+      prInfo.state === 'changes_requested' &&
+      configObj.onChangesRequested
+    ) {
       githubAction = configObj.onChangesRequested
     }
 
