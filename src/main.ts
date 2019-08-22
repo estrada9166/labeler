@@ -59,6 +59,7 @@ async function run() {
       return
     }
 
+    console.log(1, configObj)
     let githubAction
     if (prInfo.state === 'commented' && configObj.onComment) {
       githubAction = configObj.onComment
@@ -140,6 +141,7 @@ function getLabelsIdsToMutate(
   let selectedLabelsToAssign
   let selectedLabelsToRemove
 
+  console.log(action)
   if (action.set) {
     selectedLabelsToAssign = _.chain(labels)
       .filter((label) => action.set!.includes(label.name))
