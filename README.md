@@ -43,3 +43,6 @@ jobs:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         CONFIG_PATH: labeler-config.yml
 ```
+
+### How it works
+![labeler.gif](https://raw.githubusercontent.com/estrada9166/labeler/v1-release/images/labeler.gif)
