@@ -1,4 +1,4 @@
-name: 'Labeler'
+name: 'PR Labeler'
 description: 'Update and assign labels by PR review.'
 author: 'estrada9166'
 inputs: 
