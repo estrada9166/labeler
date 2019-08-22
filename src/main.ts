@@ -57,20 +57,21 @@ async function run() {
       return
     }
 
-    console.log(0, configObj)
     let githubAction
     if (prInfo.state === 'commented' && configObj.onComment) {
-      console.log(1, configObj)
       githubAction = configObj.onComment
     } else if (prInfo.state === 'approved' && configObj.onApproved) {
-      console.log(2, configObj)
       githubAction = configObj.onApproved
     } else if (
       prInfo.state === 'changes_requested' &&
       configObj.onChangesRequested
     ) {
-      console.log(3, configObj)
       githubAction = configObj.onChangesRequested
+    }
+
+    if (!githubAction) {
+      console.log('There is no configuration for this action')
+      return
     }
 
     const {
