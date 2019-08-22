@@ -36,6 +36,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
     - name: Labeler
       uses: estrada9166/labeler@v1
       with:
