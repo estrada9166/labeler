@@ -1,5 +1,5 @@
 {
-  "name": "labeler",
+  "name": "pr-labeler",
   "version": "1.0.0",
   "private": true,
   "description": "Update and assign labels by PR review.",
