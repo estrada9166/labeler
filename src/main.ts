@@ -35,13 +35,14 @@ async function run() {
     const token = core.getInput('GITHUB_TOKEN', { required: true })
     const configPath = core.getInput('CONFIG_PATH', { required: true })
 
-    const configObj: any = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+    let configObj: any = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
 
     if (!configObj) {
       console.log('There is no configuration to set the labels')
       return
     }
 
+    configObj = JSON.parse(configObj)
     const prInfo = getPRInfo()
 
     if (!prInfo) {
@@ -58,16 +59,16 @@ async function run() {
     }
 
     console.log(1, prInfo.state === 'commented')
-    console.log(1, prInfo.state === 'commented' && configObj['onComment'])
-    console.log(2, configObj['onComment'])
+    console.log(1, prInfo.state === 'commented' && configObj.onComment)
+    console.log(2, configObj.onComment)
     let githubAction
-    if (prInfo.state === 'commented' && configObj['onComment']) {
+    if (prInfo.state === 'commented' && configObj.onComment) {
       githubAction = configObj.onComment
-    } else if (prInfo.state === 'approved' && configObj['onApproved']) {
+    } else if (prInfo.state === 'approved' && configObj.onApproved) {
       githubAction = configObj.onApproved
     } else if (
       prInfo.state === 'changes_requested' &&
-      configObj['onChangesRequested']
+      configObj.onChangesRequested
     ) {
       githubAction = configObj.onChangesRequested
     }
