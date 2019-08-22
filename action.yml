@@ -1,0 +1,11 @@
+name: 'Labeler'
+description: 'Update and assign labels by PR review.'
+author: 'estrada9166'
+inputs: 
+  GITHUB_TOKEN:
+    description: 'The GITHUB_TOKEN secret'
+  CONFIG_PATH:
+    description: 'The path for the config file (root)'
+runs:
+  using: 'node12'
+  main: 'lib/main.js'
