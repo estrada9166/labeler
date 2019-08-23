@@ -84,12 +84,17 @@ async function run() {
       return
     }
 
-    await removeLabelsFromLabelable(
-      client,
-      prInfo.nodeId,
-      selectedLabelsToRemove
-    )
-    await addLabelsToLabelable(client, prInfo.nodeId, selectedLabelsToAssign)
+    if (selectedLabelsToRemove.length) {
+      await removeLabelsFromLabelable(
+        client,
+        prInfo.nodeId,
+        selectedLabelsToRemove
+      )
+    }
+
+    if (selectedLabelsToAssign.length) {
+      await addLabelsToLabelable(client, prInfo.nodeId, selectedLabelsToAssign)
+    }
   } catch (error) {
     core.error(error)
     core.setFailed(error.message)
