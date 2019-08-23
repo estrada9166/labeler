@@ -84,7 +84,7 @@ async function run() {
       return
     }
 
-    if (selectedLabelsToRemove.length) {
+    if (selectedLabelsToRemove && selectedLabelsToRemove.length) {
       await removeLabelsFromLabelable(
         client,
         prInfo.nodeId,
@@ -92,7 +92,7 @@ async function run() {
       )
     }
 
-    if (selectedLabelsToAssign.length) {
+    if (selectedLabelsToAssign && selectedLabelsToAssign.length) {
       await addLabelsToLabelable(client, prInfo.nodeId, selectedLabelsToAssign)
     }
   } catch (error) {
