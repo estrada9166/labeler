@@ -2,7 +2,31 @@
 
 Update and assign labels by PR review.
 
+### Config options
+|Key                     |Description                               |
+|:-----------------------|:-----------------------------------------|
+|**`onComment`**         |when a PR review comment is made          |
+|**`onChangesRequested`**|when PR is reviewed with changes requested|
+|**`onApproved`**        |when a PR is approved                     |
+
 ## Create a config file in the root of your project
+
+**File structure**
+```
+.
+│
+├── .github 
+│   ├── workflows
+│   │    ├── labeler-action.yml <------ workflow file
+│   │    └── ...
+│   └── ...
+├── package.json
+├── labeler-config.yml <--------------- config file
+└── ...
+```
+
+## Setup config file:
+> _this can be named whatever you like, so long as you reference it correctly in the workflow file_
 ```yml
 onComment:
   set:
