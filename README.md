@@ -19,9 +19,8 @@ Update and assign labels by PR review.
 │   ├── workflows
 │   │    ├── labeler-action.yml <------ workflow file
 │   │    └── ...
+│   └── labeler-config.yml <--------------- config file
 │   └── ...
-├── package.json
-├── labeler-config.yml <--------------- config file
 └── ...
 ```
 
