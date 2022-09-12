@@ -1,6 +1,6 @@
-name: 'Pull Request Labeler'
-description: 'Update and assign labels by PR review.'
-author: 'estrada9166'
+name: 'Workflow PR Labeler'
+description: 'Update and assign pull request labels given configuration'
+author: 'igoroctaviano'
 inputs: 
   GITHUB_TOKEN:
     description: 'The GITHUB_TOKEN secret'

@@ -1,36 +1,55 @@
-# Labeler
+# Workflow PR Labeler
 
-Update and assign labels by PR review.
+Update and assign pull request labels given configuration
+
+## Debugging
 
 ## Create a config file in the root of your project
 ```yml
 onComment:
+  remove:
+    - Changes Requested
+    - Approved
   set:
-    - help wanted
-    - WIP
+    - Commented
 
 onApproved:
   remove:
-    - help wanted
+    - Commented
+    - Changes Requested
+    - Work in progress
   set:
     - First review
     - Ready to merge
 
+onOpen:
+  set:
+    - Work in progress
+
+onClosed:
+  set:
+    - Closed
+
+onMerged:
+  remove:
+    - Work in progress
+    - Closed
+  set:
+    - Merged
+
 onChangesRequested:
   remove:
-    - bug
-    - invalid
-    - duplicate
-    - help wanted
+    - Approved
+    - Commented
   set:
     - Ready to merge
 ```
 
 ## Create a workflow:
 ```yml
-name: Labeler
+name: Assign pull request labels based on labeler configuration
 
-on: [pull_request_review, pull_request_review_comment]
+on: [pull_request, pull_request_review, pull_request_review_comment]
 
 jobs:
   build:
@@ -38,11 +57,8 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Labeler
-      uses: estrada9166/labeler@v1
+      uses: igoroctaviano/workflow-pr-labeler@v1
       with:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         CONFIG_PATH: labeler-config.yml
 ```
-
-### How it works
-![labeler.gif](https://raw.githubusercontent.com/estrada9166/labeler/v1-release/images/labeler.gif)

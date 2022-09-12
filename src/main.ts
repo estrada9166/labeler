@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import * as github from '@actions/github' //
+import * as github from '@actions/github'
 import * as _ from 'lodash'
 import * as yaml from 'js-yaml'
 import * as fs from 'fs'
@@ -15,7 +15,8 @@ type Label = {
 
 type PRInfo = {
   nodeId: string
-  state: 'commented' | 'approved' | 'changes_requested'
+  reviewState: 'commented' | 'approved' | 'changes_requested'
+  state: 'merged' | 'closed' | 'open'
   labels: Label[]
   repoName: string
 }
@@ -58,12 +59,16 @@ async function run() {
     }
 
     let githubAction
-    if (prInfo.state === 'commented' && configObj.onComment) {
+    if (prInfo.reviewState === 'commented' && configObj.onComment) {
       githubAction = configObj.onComment
-    } else if (prInfo.state === 'approved' && configObj.onApproved) {
+    } else if (prInfo.state === 'merged' && configObj.onMerged) {
+      githubAction = configObj.onMerged
+    } else if (prInfo.state === 'closed' && configObj.onClosed) {
+      githubAction = configObj.onClosed
+    } else if (prInfo.reviewState === 'approved' && configObj.onApproved) {
       githubAction = configObj.onApproved
     } else if (
-      prInfo.state === 'changes_requested' &&
+      prInfo.reviewState === 'changes_requested' &&
       configObj.onChangesRequested
     ) {
       githubAction = configObj.onChangesRequested
@@ -74,10 +79,8 @@ async function run() {
       return
     }
 
-    const {
-      selectedLabelsToAssign,
-      selectedLabelsToRemove,
-    } = getLabelsIdsToMutate(githubAction, labels)
+    const { selectedLabelsToAssign, selectedLabelsToRemove } =
+      getLabelsIdsToMutate(githubAction, labels)
 
     if (!(client && prInfo.nodeId && selectedLabelsToAssign.length)) {
       console.log('There was an error')
@@ -111,7 +114,8 @@ function getPRInfo(): PRInfo | undefined {
 
   return {
     nodeId: pr.node_id,
-    state: review.state,
+    state: pr.state,
+    reviewState: review.state,
     labels: pr.labels,
     repoName: repo.full_name,
   }
