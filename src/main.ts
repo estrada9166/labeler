@@ -61,10 +61,12 @@ async function run() {
     let githubAction
     if (prInfo.reviewState === 'commented' && configObj.onComment) {
       githubAction = configObj.onComment
-    } else if (prInfo.state === 'merged' && configObj.onMerged) {
-      githubAction = configObj.onMerged
-    } else if (prInfo.state === 'closed' && configObj.onClosed) {
-      githubAction = configObj.onClosed
+    } else if (prInfo.state === 'open' && configObj.onOpen) {
+      githubAction = configObj.onOpen
+    } else if (prInfo.state === 'merged' && configObj.onMerge) {
+      githubAction = configObj.onMerge
+    } else if (prInfo.state === 'closed' && configObj.onClose) {
+      githubAction = configObj.onClose
     } else if (prInfo.reviewState === 'approved' && configObj.onApproved) {
       githubAction = configObj.onApproved
     } else if (
