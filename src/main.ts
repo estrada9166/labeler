@@ -67,8 +67,8 @@ async function run() {
       githubAction = configObj.onMerge
     } else if (prInfo.state === 'closed' && configObj.onClose) {
       githubAction = configObj.onClose
-    } else if (prInfo.reviewState === 'approved' && configObj.onApproved) {
-      githubAction = configObj.onApproved
+    } else if (prInfo.reviewState === 'approved' && configObj.onApprove) {
+      githubAction = configObj.onApprove
     } else if (
       prInfo.reviewState === 'changes_requested' &&
       configObj.onChangesRequested

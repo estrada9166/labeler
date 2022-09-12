@@ -13,7 +13,7 @@ onComment:
   set:
     - Commented
 
-onApproved:
+onApprove:
   remove:
     - Commented
     - Changes Requested
